@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -13,11 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.mrspd.deltaonsiteround1.MainActivity.Companion.pathh
 
 
 class Fragment2 : Fragment(), PathsInterface {
-        var flag = true
+    var flag = true
     private lateinit var mPaint: Paint
     private var mPath: Path = Path()
     lateinit var count: LiveData<Path>
@@ -69,14 +69,10 @@ class Fragment2 : Fragment(), PathsInterface {
 //        }
     }
 
-    inner class DrawingView(context: Context?) : View(context), PathsInterface {
-        //        override fun drawPaths(path: Path) {
-//            Log.d("gghh", "BOOOOMM")
-//            mPath = path
-//            invalidate()
-//        }
+    inner class DrawingView(context: Context?) : View(context) {
+
         private lateinit var mBitmap: Bitmap
-        private lateinit var mCanvas: Canvas
+        private var mCanvas: Canvas = Canvas()
         private var mPath: Path = Path()
         private val mBitmapPaint: Paint
         private val circlePaint: Paint
@@ -87,17 +83,14 @@ class Fragment2 : Fragment(), PathsInterface {
             mCanvas = Canvas(mBitmap)
         }
 
+
         override fun onDraw(canvas: Canvas) {
             super.onDraw(canvas)
-            //   redrawpaths()
+            d("gghh", "hii there its ondraw")
             canvas.drawBitmap(mBitmap, 0F, 0F, mBitmapPaint)
             canvas.drawPath(mPath, mPaint)
             canvas.drawPath(circlePath, circlePaint)
-//            if (!flag){
-//                canvas.drawColor(Color.WHITE)
-//                flag = true
-//                pathh.reset()
-//            }
+
         }
 
         private var mX = 0f
@@ -111,7 +104,6 @@ class Fragment2 : Fragment(), PathsInterface {
             mX = x
             mY = y
         }
-
 
         private fun touch_move(x: Float, y: Float) {
             val dx = Math.abs(x - mX)
@@ -129,17 +121,11 @@ class Fragment2 : Fragment(), PathsInterface {
             mPath.lineTo(mX, mY)
             circlePath.reset()
             mCanvas.drawPath(mPath, mPaint)
-
-
         }
 
         fun redrawpaths() {
-            pathh.observe(viewLifecycleOwner, Observer {
-                Log.d("gghh", "changes observed")
-                mPath = it
-            })
-
-            invalidate()
+            d("gghh", "inside  Redrawpaths fun")
+            this.invalidate()
         }
 
         override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -162,14 +148,11 @@ class Fragment2 : Fragment(), PathsInterface {
             return true
         }
 
-
         init {
             mPaint = Paint()
-//            mPath = pathh.value!!
             mBitmapPaint = Paint(Paint.DITHER_FLAG)
             circlePaint = Paint()
             circlePath = Path()
-
             circlePaint.isAntiAlias = true
             circlePaint.color = Color.BLUE
             circlePaint.style = Paint.Style.STROKE
@@ -177,20 +160,12 @@ class Fragment2 : Fragment(), PathsInterface {
             circlePaint.strokeWidth = 4f
         }
 
-        override fun drawPaths(path: Path) {
-            mPath = path
-            Log.d("gghh", "Boom1")
-            invalidate()
-        }
-
 
     }
 
-    override fun drawPaths(path: Path) {
+    override fun drawPaths(path: Path, contextt: Context) {
         mPath = path
-        Log.d("gghh", "Boom1")
-
-        DrawingView(context).invalidate()
+        Log.d("gghh", " delivered to fragment2")
+        DrawingView(contextt).redrawpaths()
     }
-
 }

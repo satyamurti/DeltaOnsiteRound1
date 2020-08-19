@@ -3,6 +3,7 @@ package com.mrspd.deltaonsiteround1
 import android.content.Context
 import android.graphics.*
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -11,7 +12,7 @@ import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
-import com.mrspd.deltaonsiteround1.MainActivity.Companion.pathh
+//import com.mrspd.deltaonsiteround1.MainActivity.Companion.pathh
 
 
 class Fragment1 : Fragment() {
@@ -83,7 +84,7 @@ class Fragment1 : Fragment() {
 
         override fun onDraw(canvas: Canvas) {
             super.onDraw(canvas)
-            pathh.value = mPath //livedata waala
+//            pathh.value = mPath //livedata waala
 //            pathLiveData.value = mPath
             canvas.drawBitmap(mBitmap, 0F, 0F, mBitmapPaint)
             canvas.drawPath(mPath, mPaint)
@@ -109,7 +110,8 @@ class Fragment1 : Fragment() {
                 mY = y
                 circlePath.reset()
                 circlePath.addCircle(mX, mY, 30F, Path.Direction.CW)
-                pathsInterface.drawPaths(mPath)
+                pathsInterface.drawPaths(mPath, activity as MainActivity)
+                d("gghh", " out for delivery to mainactivity from fragment1 ${mPath}")
             }
         }
 
@@ -143,12 +145,12 @@ class Fragment1 : Fragment() {
 
         init {
             mPaint = Paint()
-            if (pathh.value == null){
-                pathh.value = mPath
-            }
-            else{
-                mPath = pathh.value!!
-            }
+//            if (pathh.value == null){
+//                pathh.value = mPath
+//            }
+//            else{
+//                mPath = pathh.value!!
+//            }
             mBitmapPaint = Paint(Paint.DITHER_FLAG)
             circlePaint = Paint()
             circlePath = Path()

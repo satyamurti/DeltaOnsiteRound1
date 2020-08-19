@@ -1,8 +1,10 @@
 package com.mrspd.deltaonsiteround1
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Path
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() , PathsInterface {
 
     }
 companion object{
- var pathh  = MutableLiveData<Path>()
+// var pathh  = MutableLiveData<Path>()
 }
 
     fun Reset(view: View) {
@@ -38,16 +40,18 @@ companion object{
         overridePendingTransition(0, 0)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         finish()
-        pathh = MutableLiveData()
+//        pathh = MutableLiveData()
         overridePendingTransition(0, 0)
         startActivity(intent)
     }
 
 
 
-    override  fun drawPaths(path: Path) {
+    override  fun drawPaths(path: Path , context: Context) {
+        Log.d("gghh", " out for delivery to fragment2")
+
 //        var fragment :Fragment2 = supportFragmentManager.findFragmentById(R.id.fragment2) as Fragment2
-        Fragment2().drawPaths(path)
+        Fragment2().drawPaths(path , this)
 }
     //Setting Up the back button
 //    override fun onSupportNavigateUp(): Boolean {
