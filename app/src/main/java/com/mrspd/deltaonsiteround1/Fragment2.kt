@@ -12,34 +12,35 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 
 
 class Fragment2 : Fragment(), PathsInterface {
     var flag = true
+
     private lateinit var mPaint: Paint
     private var mPath: Path = Path()
-    lateinit var count: LiveData<Path>
-
     companion object {
         const val TOUCH_TOLERANCE = 4f
         fun newInstance(): Fragment1 {
             return Fragment1()
         }
     }
-
+    lateinit var drawingView: DrawingView
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        drawingView = DrawingView(context)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        drawingView = DrawingView(activity as MainActivity)
         val rootView: View =
             inflater.inflate(R.layout.fragment2, container, false)
         val relativeLayout =
             rootView.findViewById<View>(R.id.rect) as RelativeLayout
-        relativeLayout.addView(DrawingView(activity as MainActivity))
+        relativeLayout.addView(drawingView)
 
         return rootView;
     }
@@ -54,13 +55,13 @@ class Fragment2 : Fragment(), PathsInterface {
         mPaint.strokeJoin = Paint.Join.ROUND
         mPaint.strokeCap = Paint.Cap.ROUND
         mPaint.strokeWidth = 12f
-        count = MutableLiveData<Path>()
-
-        count.observe(this, Observer {
-            Log.d("gghh", "changes observed")
-            mPath = it
-            DrawingView(context as MainActivity).postInvalidate()
-        })
+//        count = MutableLiveData<Path>()
+//
+//        count.observe(this, Observer {
+//            Log.d("gghh", "changes observed")
+//            mPath = it
+//            DrawingView(context as MainActivity).postInvalidate()
+//        })
 
 //        btReset2.setOnClickListener {
 //            pathh.reset()
@@ -123,9 +124,10 @@ class Fragment2 : Fragment(), PathsInterface {
             mCanvas.drawPath(mPath, mPaint)
         }
 
-        fun redrawpaths() {
+        fun redrawpaths(path: Path) {
+            mPath = path
             d("gghh", "inside  Redrawpaths fun")
-            this.invalidate()
+            invalidate()
         }
 
         override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -165,7 +167,9 @@ class Fragment2 : Fragment(), PathsInterface {
 
     override fun drawPaths(path: Path, contextt: Context) {
         mPath = path
+
         Log.d("gghh", " delivered to fragment2")
-        DrawingView(contextt).redrawpaths()
+        drawingView.invalidate()
+//        this.DrawingView(contextt).redrawpaths(path)
     }
 }
