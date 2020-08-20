@@ -14,21 +14,55 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_weight="1"
-        app:defaultNavHost="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/bottomnav" />
+ />
+
+<!--    <Button-->
+<!--        android:id="@+id/button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:onClick="Reset"-->
+<!--        android:text="Reset"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/fragment2"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/fragment1" />-->
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reset"
-        android:onClick="Reset"
+        android:onClick="Black"
+        android:text="Black"
+        app:layout_constraintBottom_toTopOf="@+id/fragment2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/red"
+        app:layout_constraintTop_toBottomOf="@+id/fragment1"
+        app:layout_constraintVertical_bias="0.493" />
+
+    <Button
+        android:id="@+id/red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="Red"
+        android:text="RED"
         app:layout_constraintBottom_toTopOf="@+id/fragment2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment1" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment1"
+        app:layout_constraintVertical_bias="0.493" />
+
+    <Button
+        android:id="@+id/erasor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="Erase"
+        android:text="Erasor"
+        app:layout_constraintBottom_toTopOf="@+id/fragment2"
+        app:layout_constraintEnd_toStartOf="@+id/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment1"
+        app:layout_constraintVertical_bias="0.493" />
 
     <fragment
         android:id="@+id/fragment2"
@@ -36,21 +70,11 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_weight="1"
-        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:navGraph="@navigation/bottomnav" />
+ />
 
-    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--        android:id="@+id/bottomNav"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:background="#151515"-->
-    <!--        app:itemTextColor="#fff"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:menu="@menu/menu_bottom_main"-->
-    <!--        tools:layout_editor_absoluteX="0dp" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

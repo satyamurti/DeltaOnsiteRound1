@@ -7,7 +7,3 @@ import android.graphics.Path
 interface PathsInterface {
     fun drawPaths(path: android.graphics.Path, context: Context)
 }
-
-interface Invalidator {
-    fun invalidatee()
-}
