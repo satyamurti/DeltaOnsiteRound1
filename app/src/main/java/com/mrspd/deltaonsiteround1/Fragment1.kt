@@ -61,9 +61,12 @@ class Fragment1 : Fragment() {
         var drawingView: DrawingView? = null
         fun newInstance(): Fragment1 {
             return Fragment1()
+        }fun newInstance1(): Path {
+            return Path()
         }
 
         fun updatePath1(pathh: Path?) {
+            path = newInstance1()
             path = pathh!!
         }
     }

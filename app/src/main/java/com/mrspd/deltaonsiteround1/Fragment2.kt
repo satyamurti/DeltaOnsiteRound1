@@ -63,6 +63,7 @@ class Fragment2 : Fragment() {
         }
 
         fun updatePath2(pathh: Path?) {
+
             path = pathh!!
         }
     }
